@@ -18,13 +18,29 @@
     <label for="" class="form-check-label">
       <input ngModel name="subscribe" #subscribe="ngModel" type="checkbox" class="form-check-input">Subscribe to Newsletter</label>
   </div>
-  <div class="form-group"><label for="language"></label>
-    <select ngModel name="language" id="language" class="form-control">
+  
+  <!-- <div class="form-group"><label for="language">Language</label>
+    <select multiple ngModel name="language" id="language" class="form-control">
       <option>Please select a language</option>
       <option *ngFor="let lang of languages" [ngValue]="lang">{{ lang.name }}</option>
     </select>
+  </div> -->
+
+  <div class="form-check form-check-inline" *ngFor="let lang of languages">
+    <label class="form-check-label">
+      <input type="radio" [(ngModel)]="user.language" name="language" class="form-check-input" [value]="lang.id" >{{ lang.name }}
+    </label>
   </div>
-  <button class="btn btn-primary">Submit</button>
+
+  <div class="form-group" ngModelGroup="contactMethods"><label>Contact Method</label>
+    <div *ngFor="let cm of contactMethods"  class="form-check form-check-inline">
+      <label class="form-check-label">
+        <input type="checkbox" ngModel name="{{cm.name}}" id="language" class="form-check-input" checked="'checked'" [value]="cm.name">{{ cm.name }}</label>
+      </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+  <button type="button" class="btn btn-primary" (click)="onClick()">Clear</button>
 </form>
 
 <pre>
