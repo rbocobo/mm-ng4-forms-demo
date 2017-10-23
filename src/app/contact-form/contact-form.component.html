@@ -1,0 +1,32 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <div ngModelGroup="contact" #contact="ngModelGroup">
+    <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input required minlength="3" pattern="^[A-Z][a-z0-9_-]{1,19}$" [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel" id="firstName" (change)="log(firstName)" type="text" class="form-control">
+    <div *ngIf="firstName.invalid && firstName.touched" class="alert alert-danger">
+      <div *ngIf="firstName.errors.required"><small>First Name is Required</small></div>
+      <div *ngIf="firstName.errors.minlength"><small>First Name must be at least 3 characters long</small></div>
+      <div *ngIf="firstName.errors.pattern"><small>The first letter should be uppercase</small></div>
+    </div>
+  </div>
+  </div>
+  <div class="form-group">
+    <label for="comments">Comments</label>
+    <textarea ngModel name="comments" id="comments" class="form-control"></textarea>
+  </div>
+  <div class="form-check">
+    <label for="" class="form-check-label">
+      <input ngModel name="subscribe" #subscribe="ngModel" type="checkbox" class="form-check-input">Subscribe to Newsletter</label>
+  </div>
+  <div class="form-group"><label for="language"></label>
+    <select ngModel name="language" id="language" class="form-control">
+      <option>Please select a language</option>
+      <option *ngFor="let lang of languages" [ngValue]="lang">{{ lang.name }}</option>
+    </select>
+  </div>
+  <button class="btn btn-primary">Submit</button>
+</form>
+
+<pre>
+  {{ f.value | json }}
+</pre>
